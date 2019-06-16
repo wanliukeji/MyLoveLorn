@@ -13,12 +13,61 @@
     <link rel="stylesheet" href="../AmazeUI/assets/css/amazeui.min.css">
     <link rel="stylesheet" href="../AmazeUI/assets/css/app.css">
     <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
-    <script src="../js/canvasDrop.js"></script>
+    <script src="../js/canvasRain.js"></script>
+
+    <style>
+        canvas {
+            position: absolute;
+            z-index: 10; top: 0;
+            left: 0; opacity: 0.5;
+        }
+    </style>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            var W = $(window).width(),
+                H = $(window).height(),
+                x2 = -15, len = 30, count = 100;
+            var canvas = document.getElementById("snow");
+            canvas.width = W;
+            canvas.height = H;
+            var ctx = canvas.getContext('2d');
+
+            setInterval(clearCanvas,100);
+            function clearCanvas() {
+                ctx.clearRect(0, 0, W, H);
+                draws();
+            }
+
+            function draw(x, y) {
+                //canvas写渐变：createLinearGradient（startX,startY,endX,endY）
+                var grd = ctx.createLinearGradient(x, y, x + x2, y + len);
+                grd.addColorStop(0, "rgba(1,0,0,0)");
+                grd.addColorStop(0.5, "rgba(105,105,105,1)");
+                grd.addColorStop(1, "rgba(255,255,255,1)");
+                ctx.strokeStyle = grd;
+
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+                ctx.lineTo(x + x2, y + len);
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                ctx.closePath();
+            }
+            function draws() {
+                for (var i = 1; i <= count; i++) {
+                    console.log(i)
+                    draw(Math.random() * W, Math.random() * H);
+                }
+            }
+        });
+    </script>
 </head>
-<body style="width: 80%;margin-left: auto;margin-right: auto;background-color: #cfcfcf;">
+<body style="width: 80%;margin-left: auto;margin-right: auto;background-color: #3a3a3a;" bgcolor="black">
 
 <header data-am-widget="header" class="am-header am-header-default"
-        style="background-color: #b4b4b4">
+        style="background-color: #3c3c3c">
     <h1 style="font-family: 楷体;padding-bottom: 10px;">
         <img src="../AmazeUI/assets/i/timg.jpg" height="45" width="60"
              style="margin-bottom: 5px;"/>
@@ -41,51 +90,16 @@
     </h1>
 </header>
 
+<canvas id="snow" style="width: 100%;height: 700px;"></canvas>
 
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-           width="0" height="0" viewBox="0 0 1366 768" xml:space="preserve">
-  <!-- Gaussian blur filter progression to animate -->
-  <defs>
-    <filter id="blur0">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="0 0" />
-    </filter>
-    <filter id="blur1">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="5 0" />
-    </filter>
-    <filter id="blur2">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="12 0" />
-    </filter>
-    <filter id="blur3">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="20 0" />
-    </filter>
-    <filter id="blur4">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="35 1" />
-    </filter>
-    <filter id="blur5">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="50 1" />
-    </filter>
-  </defs>
-</svg>
 
-<div class="slider">
-    <div>
-        <img src="../jquery-svg-image-slider/images/photo-1446770145316-10a05382c470.jpg" alt="">
-    </div>
-    <div>
-        <img src="../jquery-svg-image-slider/images/photo-1455717974081-0436a066bb96.jpg" alt="">
-    </div>
-    <div>
-        <img src="../jquery-svg-image-slider/images/photo-1477420086945-b99c643e8a3d.jpg" alt="">
-    </div>
-</div>
 <script src='../jquery-svg-image-slider/js/jquery.min.js'></script>
 <script src='../jquery-svg-image-slider/js/slick.min.js'></script>
 
 <script src="../jquery-svg-image-slider/js/index.js"></script>
 
-
-<script src="../AmazeUI/assets/js/jquery.min.js"></script>
+<!--<script src="../AmazeUI/assets/js/jquery.min.js"></script>-->
 <script src="../AmazeUI/assets/js/amazeui.min.js"></script>
-
+<!---->
 </body>
 </html>
