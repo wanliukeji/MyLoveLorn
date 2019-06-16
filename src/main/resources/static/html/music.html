@@ -5,7 +5,7 @@
   <meta name="viewport"
         content="width=device-width, initial-scale=1">
   <title>忆 - 音乐 - 宁波 | Just a iScroll Demo</title>
-  <link rel="stylesheet" href="assets/css/amazeui.css"/>
+  <link rel="stylesheet" href="../AmazeUI/assets/css/amazeui.css"/>
   <style>
     html,
     body,
@@ -53,192 +53,51 @@
     }
   </style>
 </head>
-<body>
+<body style="width: 80%;margin-left: auto;margin-right: auto;background-color: #cfcfcf;">
 <div class="page">
-  <header data-am-widget="header" class="am-header am-header-default">
-    <h1 class="am-header-title">
-      同城 - 音乐
+
+  <header data-am-widget="header" class="am-header am-header-default"
+          style="background-color: #b4b4b4">
+    <h1 style="font-family: 楷体;padding-bottom: 10px;">
+      <img src="../AmazeUI/assets/i/timg.jpg" height="45" width="60"
+           style="margin-bottom: 5px;"/>
+      &nbsp;
+      <a href="../html/index.html" style="color: black;">失恋广场</a>
+      &nbsp;
+      <a href="../html/sidebar.html" style="color: black;">爱的迟白</a>
+      &nbsp;
+      <a href="#title-link" style="color: black;">雨的诉说</a>
+      &nbsp;
+      <a href="#title-link" style="color: black;">风的传递</a>
+      &nbsp;
+      <a href="#title-link" style="color: black;">云的漂泊</a>
+      &nbsp;
+      <a href="#title-link" style="color: black;">那时的你</a>
+      &nbsp;
+      <a href="#title-link" style="color: black;">心灵寄托</a>
+      &nbsp;
+      <a href="../html/music.html" style="color: red;">曾经的歌</a>
     </h1>
+
   </header>
 
-  <div id="wrapper" data-am-widget="list_news"
-       class="am-list-news am-list-news-default">
-    <div class="am-list-news-bd">
-      <div class="pull-action loading" id="pull-down">
-        <span class="am-icon-arrow-down pull-label"
-              id="pull-down-label"> 下拉刷新</span>
-        <span class="am-icon-spinner am-icon-spin"></span>
-      </div>
-      <ul class="am-list" id="events-list">
-        <li class="am-list-item-desced">
-          <div class="am-list-item-text">
-            正在加载内容...
-          </div>
-        </li>
-      </ul>
-      <div class="pull-action" id="pull-up">
-        <span class="am-icon-arrow-down pull-label"
-              id="pull-up-label"> 上拉加载更多</span>
-        <span class="am-icon-spinner am-icon-spin"></span>
-      </div>
-    </div>
-  </div>
-</div>
+  <h1 class="am-header-title" align="center">
+    我们 - 音乐
+  </h1>
+
+
+
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/handlebars.min.js"></script>
-<script type="text/x-handlebars-template" id="tpi-list-item">
-  {{#each this}}
-  <li class="am-list-item-desced" data-id="{{id}}">
-    <a href="{{alt}}" class="am-list-item-hd" target="_blank">{{title}}</a>
 
-    <div class="am-list-item-text">{{content}}</div>
-  </li>
-  {{/each}}
-</script>
-<script src="assets/js/amazeui.min.js"></script>
-<script>
-  (function($) {
-    var EventsList = function(element, options) {
-      var $main = $('#wrapper');
-      var $list = $main.find('#events-list');
-      var $pullDown = $main.find('#pull-down');
-      var $pullDownLabel = $main.find('#pull-down-label');
-      var $pullUp = $main.find('#pull-up');
-      var topOffset = -$pullDown.outerHeight();
 
-      this.compiler = Handlebars.compile($('#tpi-list-item').html());
-      this.prev = this.next = this.start = options.params.start;
-      this.total = null;
+  <iframe frameborder="0" border="1"
+          marginwidth="0" marginheight="0"
+          width="100%" height="450"
+          src="https://music.163.com/">
+  </iframe>
 
-      this.getURL = function(params) {
-        var queries = ['callback=?'];
-        for (var key in  params) {
-          if (key !== 'start') {
-            queries.push(key + '=' + params[key]);
-          }
-        }
-        queries.push('start=');
-        return options.api + '?' + queries.join('&');
-      };
+</div>
 
-      this.renderList = function(start, type) {
-        var _this = this;
-        var $el = $pullDown;
-
-        if (type === 'load') {
-          $el = $pullUp;
-        }
-
-        $.getJSON(this.URL + start).then(function(data) {
-          console.log(data);
-          _this.total = data.total;
-          var html = _this.compiler(data.events);
-          if (type === 'refresh') {
-            $list.children('li').first().before(html);
-          } else if (type === 'load') {
-            $list.append(html);
-          } else {
-            $list.html(html);
-          }
-
-          // refresh iScroll
-          setTimeout(function() {
-            _this.iScroll.refresh();
-          }, 100);
-        }, function() {
-          console.log('Error...')
-        }).always(function() {
-          _this.resetLoading($el);
-          if (type !== 'load') {
-            _this.iScroll.scrollTo(0, topOffset, 800, $.AMUI.iScroll.utils.circular);
-          }
-        });
-      };
-
-      this.setLoading = function($el) {
-        $el.addClass('loading');
-      };
-
-      this.resetLoading = function($el) {
-        $el.removeClass('loading');
-      };
-
-      this.init = function() {
-        var myScroll = this.iScroll = new $.AMUI.iScroll('#wrapper', {
-          click: true
-        });
-        // myScroll.scrollTo(0, topOffset);
-        var _this = this;
-        var pullFormTop = false;
-        var pullStart;
-
-        this.URL = this.getURL(options.params);
-        this.renderList(options.params.start);
-
-        myScroll.on('scrollStart', function() {
-          if (this.y >= topOffset) {
-            pullFormTop = true;
-          }
-
-          pullStart = this.y;
-          // console.log(this);
-        });
-
-        myScroll.on('scrollEnd', function() {
-          if (pullFormTop && this.directionY === -1) {
-            _this.handlePullDown();
-          }
-          pullFormTop = false;
-
-          // pull up to load more
-          if (pullStart === this.y && (this.directionY === 1)) {
-            _this.handlePullUp();
-          }
-        });
-      };
-
-      this.handlePullDown = function() {
-        console.log('handle pull down');
-        if (this.prev > 0) {
-          this.setLoading($pullDown);
-          this.prev -= options.params.count;
-          this.renderList(this.prev, 'refresh');
-        } else {
-          console.log('别刷了，没有了');
-        }
-      };
-
-      this.handlePullUp = function() {
-        console.log('handle pull up');
-        if (this.next < this.total) {
-          this.setLoading($pullUp);
-          this.next += options.params.count;
-          this.renderList(this.next, 'load');
-        } else {
-          console.log(this.next);
-          // this.iScroll.scrollTo(0, topOffset);
-        }
-      }
-    };
-
-    $(function() {
-      var app = new EventsList(null, {
-        api: 'https://api.douban.com/v2/event/list',
-        params: {
-          start: 100,
-          type: 'music',
-          count: 10,
-          loc: 'beijing'
-        }
-      });
-      app.init();
-    });
-
-    document.addEventListener('touchmove', function(e) {
-      e.preventDefault();
-    }, false);
-  })(window.jQuery);
-</script>
 </body>
 </html>
-<!--http://pnc.co.il/dev/iscroll-5-pull-to-refresh-and-infinite-demo.html-->
