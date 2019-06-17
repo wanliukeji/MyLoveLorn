@@ -34,18 +34,15 @@
 
     <script src="../AmazeUI/assets/js/amazeui.min.js"></script>
     <style type="text/css">
-        /*body{
-            background: url("../image/cloud.jpg")no-repeat;
-            background-size: 100%;
-        }*/
         *{
-            background-color: #a0a0a0;
+            background-color: white;
         }
     </style>
 </head>
 <body style="width: 80%;margin-left: auto;margin-right: auto;" >
 
- <header data-am-widget="header" class="am-header am-header-default">
+ <header data-am-widget="header" class="am-header am-header-default"
+        style="z-index: 2;">
         <h1 style="font-family: 楷体;padding-bottom: 10px;">
             <img src="../AmazeUI/assets/i/timg.jpg" height="45" width="60"
                  style="margin-bottom: 5px;"/>
@@ -72,6 +69,7 @@
       position: absolute;
       margin-left: -10%;z-index: initial;" align="center">
     <span class="fontTwo" style="font: bolder 34px 楷体;">
+        <a href="../html/index.html">首页</a>——
         你若不相信我的真心 你就欺骗了整个世界
     </span>
 </div>
@@ -80,6 +78,7 @@
       position: absolute;
       margin-left: 105%; z-index: 100" align="center" >
     <span class="fontTwo" style="font: bolder 34px 楷体;">
+        <a href="../html/index.html">首页</a>——
         你若不相信我的真心 你就欺骗了整个世界
     </span>
 </div>
@@ -361,11 +360,10 @@
             });
 
             // 解开注释，可看见鼠标范围
-            /*
-              ctx.beginPath();
+
+              /*ctx.beginPath();
               ctx.arc(mousePos[0], mousePos[1], mouseDis, 0, 2 * Math.PI);
-              ctx.stroke();
-            */
+              ctx.stroke();*/
         }
     }
 
