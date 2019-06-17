@@ -10,6 +10,8 @@
   <meta http-equiv="Cache-Control" content="no-siteapp" />
   <link rel="icon" type="image/png" href="../AmazeUI/../AmazeUI/assets/i/timg.jpg">
   <link rel="stylesheet" href="../AmazeUI/assets/css/amazeui.min.css">
+  <script src="../jquery-svg-image-slider/js/jquery.min.js"></script>
+  <script src="../js/ctrls/font.js"></script>
   <style>
     @media only screen and (min-width: 641px) {
       .am-offcanvas {
@@ -105,9 +107,9 @@
     &nbsp;
     <a href="../html/gallery.html" style="color: black;">风的传递</a>
     &nbsp;
-    <a href="../html/test.html" style="color: black;">雨的诉说</a>
+    <a href="../html/rain.html" style="color: black;">雨的诉说</a>
     &nbsp;
-    <a href="#title-link" style="color: black;">云的漂泊</a>
+    <a href="../html/clound.html" style="color: black;">云的漂泊</a>
     &nbsp;
     <a href="#title-link" style="color: black;">那时的你</a>
     &nbsp;
@@ -216,8 +218,19 @@
 <![endif]-->
 
 <!--[if (gte IE 9)|!(IE)]><!-->
-<script src="assets/js/jquery.min.js"></script>
 <!--<![endif]-->
-<script src="assets/js/amazeui.min.js"></script>
+<script type="application/javascript">
+    window.onload = type;
+    var index = 0;
+    var contextFirst = $("#text1").html();
+    function type(){
+        $(".fontTwo").html(contextFirst.substring(0,index++));
+        if(index > contextFirst.length) {
+            return;
+        } else {
+            setTimeout(type,100);
+        };
+    }
+</script>
 </body>
 </html>
