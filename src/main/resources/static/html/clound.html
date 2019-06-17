@@ -21,6 +21,14 @@
             background: url("../image/cloud.jpg")no-repeat;
             background-size: 100%;
         }
+
+       /* body,html{
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100%;
+        }*/
+
     </style>
 </head>
 <body style="width: 80%;margin-left: auto;margin-right: auto;background-color: #cfcfcf;">
@@ -58,7 +66,7 @@
 
 <div style="width: 5%;height: auto;display: block;
       position: absolute;
-      margin-left: 105%;" align="center">
+      margin-left: 105%; z-index: 100" align="center" >
     <span class="fontTwo" style="font: bolder 34px 楷体;"></span>
 </div>
 
@@ -76,6 +84,57 @@
             setTimeout(type,350);
         };
     }
+
+   // /* //获取屏幕宽高
+    var windowWidth = window.screen.width;
+    var windowHeight = window.screen.height;
+
+    //创建雪花
+    function createSnow(){
+        var left = 0;
+        var top = 0;
+
+        var flake = document.createElement('div');
+
+
+        //定义一个初始化随机数,使雪花在屏幕中
+        var left_random = Math.random() * windowWidth;
+        var top_random = Math.random()* windowHeight;
+        //    1、定义一片雪花模板
+        var div = document.createElement('div');
+        // 雪花字符 ❄❉❅❆✻✼❇❈❊✥✺
+        div.innerHTML = '❇';
+        div.style.cssText = 'position:absolute;color:#fff;';
+        div.className = 'snow';
+        div.style.transform = 'scale('+(Math.random())+')'
+
+        document.body.appendChild(div);
+        //定义生成一片雪花的毫秒数
+        //雪花飘落
+        setInterval(function () {
+
+            div.style.left = left_random + left +'px';
+            div.style.top = top_random + top +'px'
+            left += 0.4;
+            top += 0.4;
+
+            //如果雪花跑到屏幕外面了,让雪花重新返回屏幕顶部
+            if(left_random + left >= windowWidth){
+                left_random = Math.random();
+                left = 0;
+            }
+
+            if(top_random + top >= windowHeight){
+                top_random = Math.random();
+                top = 0;
+            }
+        },10)
+
+    }
+    for(var i = 0 ; i < 200 ; i++){
+        createSnow()
+    }
+
 </script>
 </body>
 </html>
